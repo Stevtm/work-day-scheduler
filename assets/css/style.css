@@ -16,16 +16,9 @@ body {
 	line-height: 1;
 }
 
-textarea {
+.col-7 {
 	/* box model */
-	border: none;
-	border-left: 1px solid black;
-	padding: 10px;
-
-	/* visual decorations */
-	background: transparent;
-	resize: none;
-	color: #000000;
+	padding: 0;
 }
 
 /* ----- header styles ----- */
@@ -77,6 +70,30 @@ h3 {
 }
 
 /* --- work (meeting) styles --- */
+.work {
+	/* box model */
+	display: flex;
+	justify-content: center;
+}
+
+p {
+	/* box model */
+	padding: 10px;
+
+	/* visual decorations */
+	color: black;
+}
+
+textarea {
+	/* box model */
+	border: none;
+	padding: 10px;
+	width: 100%;
+
+	/* visual decorations */
+	background-color: transparent;
+	resize: none;
+}
 
 .past {
 	/* visual decorations */

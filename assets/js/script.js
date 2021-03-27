@@ -18,14 +18,12 @@ var getTime = function () {
 };
 
 getTime();
-
-// format time cells based on relation to current time
+// format event cells based on relation to current time
 var getTimeStatus = function () {
 	// add a class to each element with the "work" class
 	for (var i = 7; i < 20; i++) {
 		// get the "work" column for the element at time i
 		var colEl = $(`#${i} .work`);
-
 		// get the current hour
 		var currentHour = DateTime.now().hour;
 
@@ -54,3 +52,27 @@ setInterval(function () {
 	// update time formatting
 	getTimeStatus();
 }, 1000);
+
+// ----- functions that handle event input and saving -----
+// convert the time slot to a text area
+var editEvent = function (event) {
+	// declare a variable for the .work element
+	var eventEl = event.find(".event");
+
+	// get the current event text content
+	var text = eventEl.text().trim();
+
+	// create a text input element
+	var textInput = $("<textarea>").val(text);
+
+	// swap the existing div with a textarea element
+	eventEl.replaceWith(textInput);
+
+	// automatically focus on the textarea
+	textInput.trigger("focus");
+};
+
+// ----- convert time slot to text area on click -----
+$(".row").on("click", function () {
+	editEvent($(this));
+});
