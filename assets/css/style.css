@@ -1,6 +1,9 @@
 /* ----- general body styles -----  */
 
 body {
+	/* box model */
+	padding-bottom: 20px;
+
 	/* typography */
 	font-family: "Open Sans", sans-serif;
 	font-size: 16px;
@@ -53,17 +56,31 @@ textarea {
 	/* box model */
 	border-top: 1px solid white;
 	height: 80px;
+	margin: 5px 0;
 	white-space: pre-wrap;
 }
 
+/* --- hour styles --- */
 .hour {
 	/* box model */
-	border-top: 1px dashed #000000;
+	align-items: center;
+	border: 1px dashed black;
+	border-top-left-radius: 15px;
+	border-bottom-left-radius: 15px;
+	display: flex;
+	height: 100%;
 
 	/* visual decorations */
 	background-color: #ffffff;
 	color: #000000;
 }
+
+h3 {
+	/* typography */
+	font-size: 1.2rem;
+}
+
+/* --- work (meeting) styles --- */
 
 .past {
 	/* visual decorations */
@@ -83,11 +100,18 @@ textarea {
 	color: white;
 }
 
+/* --- save button styles --- */
+
 .saveBtn {
 	/* box model */
-	border-left: 1px solid black;
+	align-items: center;
 	border-top-right-radius: 15px;
 	border-bottom-right-radius: 15px;
+	display: flex;
+	justify-content: center;
+
+	/* typography */
+	font-size: 1.3rem;
 
 	/* visual decorations */
 	background-color: #06aed5;
