@@ -19,37 +19,38 @@ var getTime = function () {
 
 getTime();
 
-// ----- format time cells based on relation to current time -----
-// declare variable holding all possible time slots
-var timeSlots = [7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19];
+// format time cells based on relation to current time
+var getTimeStatus = function () {
+	// add a class to each element with the "work" class
+	for (var i = 7; i < 20; i++) {
+		// get the "work" column for the element at time i
+		var colEl = $(`#${i} .work`);
 
-// add a class to each element with the "work" class
-for (var i = timeSlots[0]; i < timeSlots.length + timeSlots[0]; i++) {
-	// get the coressponding row based on the id (time)
-	var rowEl = $(`#${i}`);
+		// get the current hour
+		var currentHour = DateTime.now().hour;
 
-	// get the "work" column for the element
-	var colEl = rowEl.find(".work");
-
-	// get the current hour
-	var currentHour = DateTime.now().hour;
-
-	// compare the current hour to each block and style accordingly
-	if (i === currentHour) {
-		colEl.addClass("present");
-	} else if (i > currentHour) {
-		colEl.addClass("future");
-	} else {
-		colEl.addClass("past");
+		// compare the current hour to each block and style accordingly
+		if (i === currentHour) {
+			colEl.addClass("present");
+		} else if (i > currentHour) {
+			colEl.addClass("future");
+		} else {
+			colEl.addClass("past");
+		}
 	}
-}
+};
 
-// ------ update the time and date every second
-// update the current time every second
+getTimeStatus();
+
+// ------ update the DOM at certain intervals -----
+// update the current time, date, and time formatting every second
 setInterval(function () {
 	// update date
 	getDate();
 
 	// update time
 	getTime();
+
+	// update time formatting
+	getTimeStatus();
 }, 1000);
