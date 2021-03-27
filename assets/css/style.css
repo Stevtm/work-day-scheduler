@@ -37,19 +37,6 @@ textarea {
 	color: black;
 }
 
-.description {
-	/* box model */
-	white-space: pre-wrap;
-}
-
-.time-block {
-	/* box model */
-	border-radius: 15px;
-
-	/* typography */
-	text-align: center;
-}
-
 /* ----- calendar styles ----- */
 
 .row {
