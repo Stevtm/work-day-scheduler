@@ -72,7 +72,27 @@ var editEvent = function (event) {
 	textInput.trigger("focus");
 };
 
-// ----- convert time slot to text area on click -----
+// convert textarea to p element
+var saveEvent = function (event) {
+	// get the current text in the textarea
+	var text = event.val().trim();
+
+	console.log(text);
+
+	//create a p element and replace the textarea with it
+	var eventEl = $("<p class='event'>").text(text);
+	event.replaceWith(eventEl);
+};
+
+// save all current events to local storage
+
+// ----- convert p element to text area on click -----
 $(".row").on("click", function () {
 	editEvent($(this));
+});
+
+// ----- convert textarea to time slot on blur -----
+$(".row").on("blur", "textarea", function () {
+	console.log($(this));
+	saveEvent($(this));
 });

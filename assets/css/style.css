@@ -73,12 +73,18 @@ h3 {
 .work {
 	/* box model */
 	display: flex;
+	flex-direction: column;
 	justify-content: center;
 }
 
 p {
 	/* box model */
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	justify-content: center;
 	padding: 10px;
+	margin: 0;
 
 	/* visual decorations */
 	color: black;
@@ -87,6 +93,7 @@ p {
 textarea {
 	/* box model */
 	border: none;
+	height: 100%;
 	padding: 10px;
 	width: 100%;
 
