@@ -23,10 +23,25 @@ getTime();
 // declare variable holding all possible time slots
 var timeSlots = [7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19];
 
-// add a class to each
+// add a class to each element with the "work" class
 for (var i = timeSlots[0]; i < timeSlots.length + timeSlots[0]; i++) {
-	var test = $(`container['id': '${i}']`);
-	console.log(test);
+	// get the coressponding row based on the id (time)
+	var rowEl = $(`#${i}`);
+
+	// get the "work" column for the element
+	var colEl = rowEl.find(".work");
+
+	// get the current hour
+	var currentHour = DateTime.now().hour;
+
+	// compare the current hour to each block and style accordingly
+	if (i === currentHour) {
+		colEl.addClass("present");
+	} else if (i > currentHour) {
+		colEl.addClass("future");
+	} else {
+		colEl.addClass("past");
+	}
 }
 
 // ------ update the time and date every second
