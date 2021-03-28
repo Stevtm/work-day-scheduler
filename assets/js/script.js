@@ -100,12 +100,30 @@ var editEvent = function (event) {
 
 // convert textarea to p element
 var saveEvent = function (event) {
+	// get the associated id (time) for the blurred textarea element
+	var row = event.closest(".row");
+	var id = row.attr("id");
+	var lock = row.find(".fas");
+
 	// get the current text in the textarea
 	var text = event.val().trim();
 
 	//create a p element and replace the textarea with it
 	var eventEl = $("<p class='event'>").text(text);
 	event.replaceWith(eventEl);
+
+	// change the lock icon to unlocked with change to text
+	if (!events[id - 7].details || events[id - 7].details !== eventEl.text()) {
+		lock.removeClass("fa-lock").addClass("fa-unlock");
+	}
+
+	// update the events array with the new information
+	event = {
+		id: id,
+		details: text,
+	};
+
+	events[id - 7] = event;
 };
 
 // save event to local storage when the save button is clicked
@@ -114,6 +132,7 @@ var pushLocalStorage = function (event) {
 	var row = event.closest(".row");
 	var id = row.attr("id");
 	var text = row.find(".event").text().trim();
+	var lock = row.find(".fas");
 
 	// add the event as an object to the local storage array
 	event = {
@@ -124,6 +143,9 @@ var pushLocalStorage = function (event) {
 	events[id - 7] = event;
 
 	localStorage.setItem("events", JSON.stringify(events));
+
+	// change unlocked icon to locked with push to localStorage
+	lock.removeClass("fa-unlock").addClass("fa-lock");
 };
 
 // ----- event listeners -----
