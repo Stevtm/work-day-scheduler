@@ -29,11 +29,11 @@ var getTimeStatus = function () {
 
 		// compare the current hour to each block and style accordingly
 		if (i === currentHour) {
-			colEl.addClass("present");
+			colEl.removeClass("future past").addClass("present");
 		} else if (i > currentHour) {
-			colEl.addClass("future");
+			colEl.removeClass("past present").addClass("future");
 		} else {
-			colEl.addClass("past");
+			colEl.removeClass("present future").addClass("past");
 		}
 	}
 };
@@ -54,10 +54,36 @@ setInterval(function () {
 }, 1000);
 
 // ----- functions that handle event input and saving -----
+
+var loadEvents = function () {
+	events = JSON.parse(localStorage.getItem("events"));
+
+	// if there is nothing in localstorage, create a new array to hold event objects
+	if (!events) {
+		events = [];
+
+		for (var i = 0; i < 13; i++) {
+			events[i] = {};
+		}
+	}
+
+	// iterate through events array objects
+	for (var event of events) {
+		if (!event.id) {
+			continue;
+		}
+
+		// set the event value to the one in localstorage
+		$(`.row[id=${event.id}] .event`).text(event.details);
+	}
+};
+
+loadEvents();
+
 // convert the time slot to a text area
 var editEvent = function (event) {
 	// declare a variable for the .work element
-	var eventEl = event.find(".event");
+	var eventEl = event;
 
 	// get the current event text content
 	var text = eventEl.text().trim();
@@ -77,22 +103,41 @@ var saveEvent = function (event) {
 	// get the current text in the textarea
 	var text = event.val().trim();
 
-	console.log(text);
-
 	//create a p element and replace the textarea with it
 	var eventEl = $("<p class='event'>").text(text);
 	event.replaceWith(eventEl);
 };
 
-// save all current events to local storage
+// save event to local storage when the save button is clicked
+var pushLocalStorage = function (event) {
+	// get the associated id (time) and text for the clicked save button
+	var row = event.closest(".row");
+	var id = row.attr("id");
+	var text = row.find(".event").text().trim();
 
-// ----- convert p element to text area on click -----
-$(".row").on("click", function () {
+	// add the event as an object to the local storage array
+	event = {
+		id: id,
+		details: text,
+	};
+
+	events[id - 7] = event;
+
+	localStorage.setItem("events", JSON.stringify(events));
+};
+
+// ----- event listeners -----
+// convert p element to text area on click
+$(".row").on("click", ".event", function () {
 	editEvent($(this));
 });
 
-// ----- convert textarea to time slot on blur -----
+// convert textarea to time slot on blur
 $(".row").on("blur", "textarea", function () {
-	console.log($(this));
 	saveEvent($(this));
+});
+
+// save contents to localstorage
+$(".row").on("click", ".saveBtn", function () {
+	pushLocalStorage($(this));
 });
