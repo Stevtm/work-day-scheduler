@@ -56,22 +56,22 @@ setInterval(function () {
 // ----- functions that handle event input and saving -----
 
 var loadEvents = function () {
-	events = JSON.parse(localStorage.getItem("events"));
+	eventsArray = JSON.parse(localStorage.getItem("events"));
 
 	var date = DateTime.now().toLocaleString(DateTime.DATE_SHORT);
 	var prevDate = localStorage.getItem("date");
 
 	// if there is nothing in localstorage OR the day has changed, create a new array to hold event objects
-	if (!events || date !== prevDate) {
-		events = [];
+	if (!eventsArray || date !== prevDate) {
+		eventsArray = [];
 
 		for (var i = 0; i < 13; i++) {
-			events[i] = {};
+			eventsArray[i] = {};
 		}
 	}
 
 	// iterate through events array objects
-	for (var event of events) {
+	for (var event of eventsArray) {
 		if (!event.id) {
 			continue;
 		}
@@ -115,38 +115,31 @@ var saveEvent = function (event) {
 	var eventEl = $("<p class='event'>").text(text);
 	event.replaceWith(eventEl);
 
-	// change the lock icon to unlocked and red background with change to text
-	if (!events[id - 7].details || events[id - 7].details !== eventEl.text()) {
+	// check if the entered text is "" and there is no existing event
+	var noChange = eventEl.text() === "" && !eventsArray[id - 7].details;
+
+	// change the lock icon to unlocked and add red background with change to text
+	if (eventsArray[id - 7].details !== eventEl.text() && !noChange) {
 		lock.removeClass("fa-lock").addClass("fa-unlock");
 		lock.closest(".saveBtn").addClass("redBtn");
 	}
 
 	// update the events array with the new information
-	event = {
+	eventItem = {
 		id: id,
 		details: text,
 	};
 
-	events[id - 7] = event;
+	eventsArray[id - 7] = eventItem;
 };
 
 // save event to local storage when the save button is clicked
 var pushLocalStorage = function (event) {
 	// get the associated id (time) and text for the clicked save button
 	var row = event.closest(".row");
-	var id = row.attr("id");
-	var text = row.find(".event").text().trim();
 	var lock = row.find(".fas");
 
-	// add the event as an object to the local storage array
-	event = {
-		id: id,
-		details: text,
-	};
-
-	events[id - 7] = event;
-
-	localStorage.setItem("events", JSON.stringify(events));
+	localStorage.setItem("events", JSON.stringify(eventsArray));
 
 	// push the current date to local storage
 	localStorage.setItem(
