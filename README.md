@@ -19,6 +19,8 @@ The application is able to perform the following scheduling functions:
 
 This is a screenshot of the deployed application!
 
+<img src="./assets/images/screenshot.png" alt="Screenshot of the deployed application" width="500"/>
+
 ## References
 
 - Bootstrap: https://getbootstrap.com/
