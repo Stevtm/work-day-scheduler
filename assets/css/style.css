@@ -163,3 +163,13 @@ textarea {
 	cursor: pointer;
 	transition: background-color 0.3s ease-in-out;
 }
+
+.redBtn {
+	/* visual decorations */
+	background-color: red;
+}
+
+.redBtn:hover {
+	/* visual decorations */
+	background-color: #cc0000;
+}

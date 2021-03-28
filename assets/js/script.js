@@ -115,9 +115,10 @@ var saveEvent = function (event) {
 	var eventEl = $("<p class='event'>").text(text);
 	event.replaceWith(eventEl);
 
-	// change the lock icon to unlocked with change to text
+	// change the lock icon to unlocked and red background with change to text
 	if (!events[id - 7].details || events[id - 7].details !== eventEl.text()) {
 		lock.removeClass("fa-lock").addClass("fa-unlock");
+		lock.closest(".saveBtn").addClass("redBtn");
 	}
 
 	// update the events array with the new information
@@ -155,6 +156,7 @@ var pushLocalStorage = function (event) {
 
 	// change unlocked icon to locked with push to localStorage
 	lock.removeClass("fa-unlock").addClass("fa-lock");
+	lock.closest(".saveBtn").removeClass("redBtn");
 };
 
 // ----- event listeners -----
