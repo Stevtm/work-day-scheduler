@@ -58,8 +58,11 @@ setInterval(function () {
 var loadEvents = function () {
 	events = JSON.parse(localStorage.getItem("events"));
 
-	// if there is nothing in localstorage, create a new array to hold event objects
-	if (!events) {
+	var date = DateTime.now().toLocaleString(DateTime.DATE_SHORT);
+	var prevDate = localStorage.getItem("date");
+
+	// if there is nothing in localstorage OR the day has changed, create a new array to hold event objects
+	if (!events || date !== prevDate) {
 		events = [];
 
 		for (var i = 0; i < 13; i++) {
@@ -143,6 +146,12 @@ var pushLocalStorage = function (event) {
 	events[id - 7] = event;
 
 	localStorage.setItem("events", JSON.stringify(events));
+
+	// push the current date to local storage
+	localStorage.setItem(
+		"date",
+		DateTime.now().toLocaleString(DateTime.DATE_SHORT)
+	);
 
 	// change unlocked icon to locked with push to localStorage
 	lock.removeClass("fa-unlock").addClass("fa-lock");
