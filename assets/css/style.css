@@ -33,9 +33,13 @@ body {
 
 	/* visual decorations */
 	background-color: transparent;
-	color: black;
+	color: white;
 }
 
+.jumbotron p {
+	/* visual decorations */
+	color: white;
+}
 /* ----- calendar styles ----- */
 
 .row {
