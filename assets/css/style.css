@@ -154,12 +154,12 @@ textarea {
 	/* visual decorations */
 	background-color: #06aed5;
 	color: white;
-	transition: all 0.3s ease-in-out;
+	transition: background-color 0.3s ease-in-out;
 }
 
 .saveBtn:hover {
 	/* visual decorations */
 	background-color: #048baa;
 	cursor: pointer;
-	transition: all 0.3s ease-in-out;
+	transition: background-color 0.3s ease-in-out;
 }
